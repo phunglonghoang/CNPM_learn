@@ -9,18 +9,24 @@ class Category(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), nullable=False)
     products = relationship('Product', backref='category', lazy=True)
-
+    def __str__(self):
+        return self.name
 
 class Product(db.Model):
     __tablename__ = 'product'
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), nullable=False)
     price = Column(Float, default=0)
     image = Column(String(100), nullable=False)
     category_id = Column(Integer, ForeignKey(Category.id), nullable=False)
 
+    def __str__(self):
+        return self.name
+
 
 if __name__ == '__main__':
+
     with app.app_context():
         c1 = Category(name="mobile")
         c2 = Category(name="tablet")
